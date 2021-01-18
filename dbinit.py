@@ -41,7 +41,7 @@ CREATE TABLE companyaccount(
 ""","""
 CREATE TABLE evaluation (
   EvaluationID 		SERAIAL PRIMARY KEY,
-  UserID 		    INTEGER DEFAULT,
+  UserID 		    INTEGER ,
   ProductNo 		INTEGER ,
   Vote 			    INTEGER ,
   Comment 		    VARCHAR(200) ,
