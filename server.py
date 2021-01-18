@@ -70,7 +70,7 @@ def signup_page():
             return redirect(url_for('signup_page'))
         else:
             if usertype=='customer':
-                cur.execute("INSERT INTO users(email, password,IsAdmin,numberOfEvaluations) VALUES (%s,%s,0,0);",(mail,password) )
+                cur.execute("INSERT INTO users(email, password,IsAdmin) VALUES (%s,%s,0);",(mail,password) )
             else:
                 cur.execute("select * from companyaccount where companyname='{0}';".format(companyname))
                 exist=cur.fetchone()
