@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS evaluation (
     ON DELETE CASCADE,
   FOREIGN KEY (ProductNo) REFERENCES Product (ProductNo)
     ON DELETE CASCADE
-);""",
+);""","""INSERT INTO VALUES(email,password,isadmin) ("admin@admin.com,"admin",1);""",
 
 ]
 
