@@ -40,7 +40,7 @@ CREATE TABLE companyaccount(
 );
 ""","""
 CREATE TABLE evaluation (
-  EvaluationID 		SERAIAL PRIMARY KEY,
+  EvaluationID 		SERIAL PRIMARY KEY,
   UserID 		    INTEGER ,
   ProductNo 		INTEGER ,
   Vote 			    INTEGER ,
