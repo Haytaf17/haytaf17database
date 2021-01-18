@@ -52,10 +52,6 @@ CREATE TABLE evaluation (
     ON DELETE CASCADE
 );""",
 
-);
-
-
-
 ]
 
 
