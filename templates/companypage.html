@@ -1,0 +1,73 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="hero-body has-background-light">
+    <div class="container has-text-left">
+        <section class="hero is-light welcome is-small">
+            <div class="hero-body">
+                <div class="container">
+                    <h1 class="title has-text-black">
+                        {{company[0]}}
+                    </h1>
+                    <h2 class="subtitle has-text-black">
+                        I hope you are having a great day!
+                    </h2>
+                </div>
+            </div>
+        </section>
+
+        <section class="info-tiles">
+            <div class="tile is-ancestor has-text-centered">
+                <div class="tile is-parent ">
+                    <article class="tile is-child box notification is-warning">
+                        <p class="title"> {{company[1]}}</p>
+                        <p class="subtitle">Products</p>
+                    </article>
+                </div>
+                <div class="tile is-parent">
+                    <article class="tile is-child box notification is-warning">
+                        <p class="title">{{company[2]}}</p>
+                        <p class="subtitle">Score</p>
+                    </article>
+                </div>
+                <div class="tile is-parent">
+                    <article class="tile is-child box notification is-warning">
+                        <p class="title">{{company[3]}}</p>
+                        <p class="subtitle">Evaluations</p>
+                    </article>
+                </div>
+                <div class="tile is-parent">
+                    <article class="tile is-child box notification is-warning">
+                        <p class="title">{{numofreply[0]}}</p>
+                        <p class="subtitle">Number of Replies</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+        <h1>.</h1>
+        <table class="table">
+            <thead>
+              <tr>
+                <th>Product Name</th>
+                <th>Score</th>
+                <th>Number of Evaluations</th>
+                <th>Category</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for product in products %}
+                <tr>
+    
+                  <th><a><strong>{{product[1]}}</strong></a></th>
+                  <th>{{product[3]}}</th>
+                  <th>{{product[4]}}</th>
+                  <th>{{product[5]}}</th>
+                  <th>{{product[6]}}</th>         
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+           
+        </div>
+</div>
+{% endblock %}

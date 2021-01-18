@@ -1,0 +1,74 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="hero-body has-background-light">
+  <div class="container has-text-left">
+    <h1 class="title has-text-black is-1">{% include "messages.html" %}Welcome to Company Evaluation Platform</h1>
+    <h2 class="subtitle has-text-black">
+      I hope you are having a great day!
+    </h2>
+
+    <section class="info-tiles">
+      <div class="tile is-ancestor has-text-centered">
+        <div class="tile is-parent ">
+          <article class="tile is-child box notification is-warning">
+            <p class="title">{{users[0]}}</p>
+            <p class="subtitle">Users</p>
+          </article>
+        </div>
+        <div class="tile is-parent">
+          <article class="tile is-child box notification is-warning">
+            <p class="title">{{companies[0]}}</p>
+            <p class="subtitle">Companies</p>
+          </article>
+        </div>
+        <div class="tile is-parent">
+          <article class="tile is-child box notification is-warning">
+            <p class="title">{{products[0]}}</p>
+            <p class="subtitle">Products</p>
+          </article>
+        </div>
+        <div class="tile is-parent">
+          <article class="tile is-child box notification is-warning">
+            <p class="title">{{evaluation[0]}}</p>
+            <p class="subtitle">Evaluations</p>
+          </article>
+        </div>
+      </div>
+    </section>
+    
+    <section class="section">
+      <div class="container">
+        <header class="card-header">
+          <p class="card-header-title"> Latest Evaluations
+          </p>
+        </header>
+        {% if posts %}
+        <table class="table is-bordered is-striped is-fullwidth">
+          <tr class="th is-selected">
+            <th>User</th>
+            <th>ProductName</th>
+            <th>Company</th>
+            <th class="comment">Comment</th>
+            <th>Point</th>
+            <th class="reply">Reply</th>
+          </tr>
+          {% for post in posts %}
+          <tr>
+            <td>{{post[0]}}</td>
+            <td>{{post[1]}}</td>
+            <td>{{post[2]}}</td>
+            <td class="comment">{{post[4]}}</td>
+            <td><progress class="progress is-warning" value="{{post[3]}}" max="10"></progress></td>
+            <td class="reply">{{post[5]}}</td>
+          </tr>
+          {% endfor %}
+          {% endif %}
+        </table>
+      </div>
+    </section>
+
+
+  </div>
+</div>
+{% endblock %}

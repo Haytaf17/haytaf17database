@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Company Evaluation!</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">  
+    
+  <style>
+    {% block head %}{% endblock %}
+    table td.comment {
+        width: 250px;
+        overflow-x: scroll;
+        overflow-y: hidden;
+        display: inline-block;
+        white-space: nowrap;
+    }
+
+    table th.comment {
+        width: 250px;
+
+
+    }
+
+    table td.reply {
+        width: 250px;
+        overflow-x: scroll;
+        overflow-y: hidden;
+        display: inline-block;
+        white-space: nowrap;
+    }
+
+    table th.reply {
+        width: 250px;
+    }
+    .navbar .container {
+        border-bottom: 5px solid darkblue;
+    }
+  </style>
+</head>
+<body>
+    <section class="hero is-fullheight">
+        <div class="hero-head">
+            <nav class="navbar is-fixed-top has-background-success" role="navigation" aria-label="main navigation">
+                <div class="navbar-brand">
+                    <a class="navbar-item has-text-warning is-italic is-size-3 " href="#">
+                       <strong> * CEP *</strong>
+                        
+                    </a>
+                </div>
+
+                <div id="navbarBasicExample" class="navbar-menu">
+                    <div class="navbar-start">
+                        <a class="navbar-item has-text-light" href="{{ url_for('home_page') }}">
+                            <strong>Home</strong>
+                        </a>
+
+                        <a class="navbar-item has-text-light" href="{{ url_for('companies_page') }}">
+                            <strong>Companies</strong>
+                        </a>
+                        <a class="navbar-item has-text-light" href="{{ url_for('products_page') }}">
+                            <strong>Products</strong>
+                        </a>
+
+                    </div>
+                    
+                    <div class="navbar-end">
+                        <div class="navbar-item">
+                            <div class="buttons">
+                            
+                                
+
+                                {% if session["logged_in"] %}
+                                
+                                    {% if session["customer"] %}
+                                        <a class="button is-primary" href="{{ url_for('newevaluation_page') }}">
+                                            <strong>New Evaluation</strong>
+                                        </a>
+
+                                        <a class="button is-light" href="{{ url_for('profile_page') }}">
+                                            Profile
+                                        </a>
+                                        <a class="button is-light" href="{{ url_for('logout_page') }}">
+                                            Log out
+                                        </a>
+                                    {% else %}
+                                        <a class="button is-primary" href="{{ url_for('newproduct') }}">
+                                        <strong>New Product</strong>
+                                        </a>
+                                        <a class="button is-light" href="{{ url_for('companyprofile') }}">
+                                            Profile
+                                        </a>
+                                        <a class="button is-light" href="{{ url_for('logout_page') }}">
+                                            Log out
+                                        </a>
+                                  
+    
+                                     {% endif %}
+                                {% else %}
+                                        <a class="button is-primary" href="{{ url_for('signup_page') }}">
+                                            <strong>Sign up</strong>
+                                        </a>
+                                        <a class="button is-light" href="{{ url_for('login_page') }}">
+                                            Log in
+                                        </a>
+                                        
+                                {% endif %}
+                                        
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+
+        {% block content %}{% endblock %}
+
+        <div class="hero-head">
+            <nav class="navbar is-fixed-bottom has-background-light" role="navigation" aria-label="main navigation">
+                <div class="navbar-brand">
+                    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
+                        data-target="navbarBasicExample">
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                    </a>
+                </div>
+
+                <div id="navbarBasicExample" class="navbar-menu" has-text-black>
+
+                    <div class="navbar-end">
+                        <div class="navbar-item">
+                            <div class="buttons">
+                                {% if session["IsAdmin"]==1 %}
+
+                                <a class="button is-info" href="{{ url_for('admin_page') }}">
+                                    <strong>Admin Panel</strong>
+                                </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </section>
+</body>
+{% block style %}{% endblock %}
+
+</html>

@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="hero-body has-background-light">
+    <div class="container has-text-left">
+        <div class="columns">
+            <div class="column left">
+                {% for company in companies %}
+                <h1 class="title has-text-weight-light has-text-black is-1">{{company[0]}} <a href="/deletecompany/{{company[0]}}"
+                        class="button is-danger">DELETE</a></h1>
+                {% endfor %}
+            </div>
+            <div class="column right">
+            
+                <form action="" method="post">
+                    <div class="field">
+                        <label class="label">CompanyName</label>
+                        <div class="control">
+                            <input class="input" type="text" name="companyname" placeholder="Text input">
+                        </div>
+                    </div>
+                    
+                    <div class="field">
+                        <label class="label">Products: ( When entering products' names, put space "," in between. )</label>
+                        <div class="control">
+                            <input class="input" type="text" name="products" placeholder="Text input">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Categories of Products. You must enter in the order above</label>
+                        <div class="control">
+                            <input class="input" type="text" name="categories" placeholder="Text input">
+                        </div>
+                    </div>
+                    <!---
+                    <div class="field">
+                        <label class="label">Old Products (It will be neglected when adding new company)</label>
+                        <div class="control">
+                            <textarea class="textarea" type="text" name="oldproducts" placeholder="Textarea"></textarea>
+                        </div>
+                    </div> -->
+                    <a class="has-text-danger"><em>{% include "messages.html" %}{% if message%}{{message}}{% endif %}</em></a>
+                    <div class="field is-grouped">
+                        <div class="control">
+                            <button class="button is-link" name="button" value="0">Add New Company</button>
+                         <!--   <button class="button is-link" name="button" value="1">Update Company</button> -->
+                        </div>
+                     
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

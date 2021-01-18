@@ -1,0 +1,66 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="hero-body has-background-light">
+  <div class="container has-text-left">
+    <h1 class="title has-text-weight-light has-text-black is-1">{% include "messages.html" %}</h1>
+    <h2 class="subtitle has-text-black">
+      You can reach the product looking for instead of listing all products.
+    </h2>
+    <h2 class="subtitle has-text-black">
+      Enter productname , companyname or categoryname.
+    </h2>
+    <form action="" method="post">
+    <div class="field is-grouped">
+        <p class="control is-expanded">
+          <input class="input" name="searchproduct" type="text" placeholder="Product Name">
+        </p>
+        <p class="control is-expanded">
+          <input class="input" name="searchcompany" type="text" placeholder="Company Name">
+        </p>
+        <p class="control is-expanded">
+          <input class="input" name="searchcategory" type="text" placeholder="Category Name">
+        </p>
+        <p class="control">
+          <button name="button" value="0" class="button is-info">
+            Search
+          </button>
+          <button name="button" value="1" class="button is-info">
+            List All Products
+          </button>
+        </p>  
+      </div>
+    </form>
+    {% if products %}
+    <table class="table is-bordered is-striped is-fullwidth">
+      <tr class="th is-selected">
+          <th>ProductName</th>
+          <th>Company</th>
+          <th>Category</th>
+          <th>Score</th>
+          <th>#evaluations</th>
+      </tr>
+      {% for product in products %}
+          <tr>
+          <td>{{product[1]}}</td>
+          <td>{{product[2]}}</td>
+          <td>{{product[5]}}</td>
+          <td><progress class="progress is-warning" value="{{product[3]}}" max="10"></progress></td>
+          <td>{{product[4]}}</td>
+          <form action="" method="post">
+              <td><input class="input is-rounded"  name="reply" type="text" placeholder="Enter your Reply"></td>
+              <td> 
+                  <div class="control">
+                      <button name="button" value="*"class="button is-link">Reply</button>
+                  </div>
+              </td>
+          </form>
+          </tr>
+        
+
+      {% endfor %}
+      {% endif %}
+   </table>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="hero-body has-background-light">
+    <div class="container has-text-left">
+        <h1 class="title has-text-weight-light has-text-danger is-1">UPDATE PRODUCT FORM</h1>
+        <form action="" method="post">
+            <div class="field">
+                <div class="control">
+                    <input class="input is-medium" name="productname" type="text" placeholder="Product Name" value="{{ values[1] }}">
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="control">
+                    <input class="input is-medium"  name="category" type="text" placeholder="Category" value="{{ values[5] }}">
+                </div>
+            </div>
+            <div class="field is-grouped">
+                <div class="control">
+                    <button class="button is-link">UPDATE</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

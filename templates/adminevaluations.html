@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="hero-body has-background-light">
+    <div class="container has-text-left">
+        <div class="columns">
+            
+            {% if evaluations %}
+            <table class="table is-bordered is-striped is-fullwidth">
+              <tr class="th is-selected">
+                <th>User</th>
+                <th>ProductName</th>
+                <th>Company</th>
+                <th class="comment">Comment</th>
+                <th>Point</th>
+                <th class="reply">Reply</th>
+              </tr>
+              {% for evaluation in evaluations %}
+              <tr>
+                <td>{{evaluation[1]}}</td>
+                <td>{{evaluation[2]}}</td>
+                <td>{{evaluation[3]}}</td>
+                <td class="comment">{{evaluation[5]}}</td>
+                <td><progress class="progress is-warning" value="{{evaluation[4]}}" max="10"></progress></td>
+                <td class="reply">{{evaluation[6]}}</td>
+                <td ><a class="button is-danger" href="/adminevaluationdelete/{{evaluation[0]}}">DELETE</a></td>
+              </tr>
+              {% endfor %}
+              {% endif %}
+            </table>
+     
+        </div>
+    </div>
+</div>
+{% endblock %}

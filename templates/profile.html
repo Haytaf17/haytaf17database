@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="hero-body has-background-light">
+    <div class="container has-text-right">
+      <h1 class="title has-text-weight-light has-text-black is-1">Title 1</h1>
+      <h2 class="subtitle has-text-black">
+        Fullheight subtitle Hey
+      </h2>
+      <h1>
+        {% if posts %}
+        <div class="container">
+          <table class="table is-bordered is-striped is-fullwidth">
+            <tr class="th is-selected">
+                <th>ProductName</th>
+                <th>Vote</th>
+                <th class="comment">Comment</th>
+                <th>Reply</th>
+            </tr>
+            {% for post in posts %}
+            <tr>
+              <td>{{post[2]}}</td>
+              <td><progress class="progress is-warning" value="{{post[3]}}" max="10"></progress></td>
+              <td class="comment">{{post[4]}}</td>
+              <td>{{post[5]}}</td>
+              <td> <a href="/delete/{{post[0]}}" class="button is-danger">Delete</a></td>
+              <td> <a href="/edit/{{post[0]}}" class="button is-info">Edit</a></td>
+              
+            </tr>
+            {% endfor %}
+          </table>
+          </div>
+          {% endif %}
+        
+      </h1>
+    </div>
+  </div>
+
+{% endblock %}

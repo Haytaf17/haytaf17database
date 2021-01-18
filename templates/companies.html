@@ -1,0 +1,85 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="hero-body has-background-light">
+  <div class="container has-text-left">
+    <div class="columns">
+      <div class="column left">
+        <div class="tile is-ancestor">
+          <div class="tile is-vertical">
+            <div class="tile">
+              <div class="tile is-parent is-vertical is-12">
+                <article class="tile is-child notification is-danger">
+                  <a href="{{url_for('categories')}}" class="title">Categories</a>
+                </article>
+                <article class="tile is-child notification is-link">
+                  <a href="{{url_for('allcompanies')}}" class="title">List All Companies</a>
+                </article>
+                <article class="tile is-child notification is-warning">
+                  <a href="{{url_for('topic')}}" class="title has-text-light">List Most Evaluated Companies</a>
+                </article>
+                <article class="tile is-child notification is-success">
+                  <a href="{{url_for('admired')}}" class="title ">List Most Admired Companies</a>
+                </article>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="column right">
+
+       
+        <div class="columns">
+          
+          <div class="column is-12">
+              <div class="card events-card">
+                
+                  <div class="card-table">
+                      <div class="content">
+                          <table class="table is-fullwidth is-striped">
+                              <tbody>
+                                {% for category in categories %}
+                                <tr>
+                                  <td width="10%"><i class="fa fa-bell-o"></i></td>
+                                  <td class="is-size-4">{{category[0]}}</td>
+                                  <td class="level-right"><a class="button is-medium has-text-danger" href="/categoriestocompany/{{category[0]}}">List Companies</a></td>
+                                </tr>
+                                {% endfor %}
+                                {% for company2 in companies2 %}
+                                <tr>
+                                  <td width="10%"><i class="fa fa-bell-o"></i></td>
+                                  <td class="is-size-4">{{company2[0]}}</td>
+                                  <td class="level-right"><a class="button is-medium has-text-danger" href="/companypage/{{company2[0]}}">Company Page</a></td>
+                                </tr>
+                                {% endfor %}
+                                {% if companies %}
+                                <tr>
+                                  <td width="10%"><i class="fa fa-bell-o"></i></td>
+                                  <th>Name</th>
+                                  <th># of products</th>
+                                  <th>Score</th>
+                                  <th># of evaluations</th>
+                                </tr>
+                                {% for company in companies %}
+                                <tr>
+                                  <td width="10%"><i class="fa fa-bell-o"></i></td>
+                                  <td class="is-size-5"><a class="has-text-info" href="/companypage/{{company[0]}}">{{company[0]}}</a></td>
+                                    <td class="is-size-5">{{company[1]}}</td>
+                                      <td class="is-size-5">{{company[2]}}</td>
+                                    <td class="is-size-5">{{company[3]}}</td>
+                                  </tr>
+                                {% endfor %}
+                                {% endif %}
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+              </div>
+          </div>
+        </div>      
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

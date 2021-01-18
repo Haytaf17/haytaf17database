@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="hero-body has-background-light">
+    <div class="container has-text-right">
+        <section class="hero is-light welcome is-small">
+            <div class="hero-body">
+                <div class="container">
+                    <h1 class="title has-text-black">
+                        Hello, Admin.
+                    </h1>
+                    <h2 class="subtitle has-text-black">
+                        I hope you are having a great day!
+                    </h2>
+                </div>
+            </div>
+        </section>
+        <section class="info-tiles">
+            <div class="tile is-ancestor has-text-centered">
+                <div class="tile is-parent ">
+                    <article class="tile is-child box notification is-warning">
+                        <p class="title">{{users[0]}}</p>
+                        <p class="subtitle">Users</p>
+                    </article>
+                </div>
+                <div class="tile is-parent">
+                    <article class="tile is-child box notification is-warning">
+                        <p class="title">{{companies[0]}}</p>
+                        <p class="subtitle">Companies</p>
+                    </article>
+                </div>
+                <div class="tile is-parent">
+                    <article class="tile is-child box notification is-warning">
+                        <p class="title">{{products[0]}}</p>
+                        <p class="subtitle">Products</p>
+                    </article>
+                </div>
+                <div class="tile is-parent">
+                    <article class="tile is-child box notification is-warning">
+                        <p class="title">{{evaluation[0]}}</p>
+                        <p class="subtitle">Evaluation</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+        <h1 class="title has-text-weight-light has-text-black is-1">{% include "messages.html" %}*</h1>
+            <div class="buttons">
+                <a href="{{url_for('admin_companies')}}" class="button is-danger is-medium">Control Companies</a>
+            </div>
+            <div class="buttons">
+                <a href="{{url_for('control_users')}}" class="button is-danger is-medium">Control Users</a>
+            </div>
+            <div class="buttons">
+                <a href="{{url_for('adminevaluations')}}" class="button is-medium is-danger">Evaluations Panel</a>
+            </div>
+                <!--<button class="button is-success">Success</button>
+                <button class="button is-warning">Warning</button>
+                <button class="button is-danger">Danger</button>-->      
+                    
+                
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="hero-body has-background-light">
+    <div class="container has-text-left">
+        <div class="columns">
+            <div class="column left">
+                {% for user in users %}
+                {% if user[1]!='admin@admin.com' %}
+                <h1 class="title has-text-weight-light has-text-black">{{user[1]}} <a href="/deleteuser/{{user[0]}}"
+                        class="button is-danger">DELETE</a> <a href="/makeadmin/{{user[0]}}"
+                        class="button is-black">MAKE ADMIN</a></h1>
+                        {% endif %}
+                {% endfor %}
+            </div>
+            <div class="column right">
+                <div class="columns">
+          
+                    <div class="column is-12">
+                        <div class="card events-card">
+                           <!-- <header class="card-header">
+                                <p class="card-header-title">
+                                    *
+                                </p>
+                              
+                            </header> -->
+                            <div class="card-table">
+                                <div class="content">
+                                    <table class="table is-fullwidth is-striped">
+                                        <tbody>
+                                        
+                                        {% for user in users %}
+                                        {% if user[3]==1 %}
+                                         {% if user[1]!='admin@admin.com' %}
+                                            <tr>
+                                            <td width="10%"><i class="fa fa-bell-o"></i></td>
+                                            <td class="is-size-4">{{user[1]}}</td>
+                                            <td class="level-right"><a class="button is-medium is-primary" href="/removeadmin/{{user[0]}}">Remove Admin</a></td>
+                                            </tr>
+                                            {% endif %}
+                                        {% endif %}
+                                        {% endfor %}
+                                        
+                                           
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+               
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

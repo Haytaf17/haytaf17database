@@ -1,0 +1,100 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="hero-body has-background-light">
+    <div class="container has-text-right">
+      <h1 class="title has-text-weight-light has-text-black is-1">Title 1</h1>
+      <h2 class="subtitle has-text-black">
+        Fullheight subtitle Hey
+      </h2>
+      <h1>
+        <div class="columns">
+          
+          <div class="column is-6">
+              <div class="card events-card">
+              
+                  <div class="card-table">
+                      <div class="content">
+                          <table class="table is-fullwidth is-striped">
+                              <tbody>
+                                {% for product in products %}
+                                <tr>
+                                  <td width="10%"><i class="fa fa-bell-o"></i></td>
+                                  <td class="is-size-5"><strong>{{product[1]}}</strong></td> 
+                                  <td class="is-size-5">{{product[3]}}</td>
+                                  <td class="is-size-5">{{product[4]}}</td>
+                                  <td class="is-size-5">{{product[5]}}</td>
+                                  <td class="level-right"><a class="button is-medium is-danger" href="/updateproduct/{{product[0]}}">Update</a><a class="button is-medium is-danger" href="/deleteproduct/{{product[0]}}">Delete</a></td>
+                                </tr>
+                                {% endfor %}
+                               
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+              </div>
+          </div>
+        </div>   
+        <div class="container">
+          <table class="table is-bordered is-striped is-fullwidth">
+            <tr class="th is-selected">
+                <th>User</th>
+                <th>Product</th>
+                <th class="comment">Comment</th>
+                <th>Vote</th>
+               
+            </tr>
+            {% for post in posts %}
+            {% if post[5]==''%}
+                <tr>
+                <td>{{post[1]}}</td>
+                <td>{{post[2]}}</td>
+                
+                <td class="comment">{{post[4]}}</td>
+                <td><progress class="progress is-warning" value="{{post[3]}}" max="10"></progress></td>
+                
+                <form action="" method="post">
+                    <td><input class="input is-rounded"  name="reply" type="text" placeholder="Enter your Reply"></td>
+                    <td> 
+                        <div class="control">
+                            <button name="button" value="{{post[0]}}"class="button is-link">Reply</button>
+                        </div>
+                    </td>
+                </form>
+              
+                </tr>
+              
+            {% endif %}
+            {% endfor %}
+         </table>
+         <table class="table is-bordered is-striped is-fullwidth">
+            <tr class="th is-selected">
+                <th>User</th>
+                <th>Product</th>
+                <th class="comment">Comment</th>
+                <th>Vote</th>
+                <th class="reply">Reply</th>
+            </tr>
+            {% for post in posts %}
+            {% if post[5]!=''%}
+                <tr>
+                <td>{{post[1]}}</td>
+                <td>{{post[2]}}</td>
+                
+                <td class="comment">{{post[4]}}</td>
+                <td><progress class="progress is-warning" value="{{post[3]}}" max="10"></progress></td>
+                <td class="reply">{{post[5]}}</td>
+                </tr>
+              
+            {% endif %}
+            {% endfor %}
+         </table>
+
+        </div>
+        
+      </h1>
+    </div>
+  </div>
+  <h1><a href="/signup">FURKAN HAYTA 2021</a></h1>
+<h2>{{ session["email"] }}</h2>
+{% endblock %}

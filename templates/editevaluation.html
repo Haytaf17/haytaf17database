@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="hero-body has-background-light">
+    <div class="container has-text-left">
+        <h1 class="title has-text-weight-light has-text-danger is-1">EVALUATION FORM</h1>
+        <form action="" method="post">
+            <div class="field">
+                <label class="label">ProductName</label>
+                    <span class="select">
+                        <select name="productno">  
+                         <!-- <option selected>c</option> -->
+                        {% for product in products %}
+                        <option value='{{product[0]}}'>{{product[1]}} ({{product[2]}})</option>
+                        {% endfor %}
+                        </select>
+                    </span>
+            </div>
+            <div class="field">
+                <label class="label">Vote( 1-10 )</label>
+                <div class="control">
+                    <input class="input" type="number" name="vote" placeholder="Text input" value="{{ values[3] }}">
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Comment</label>
+                <div class="control">
+                    <input class="textarea" type="text" name="comment" placeholder="Textarea" value="{{ values[4] }}">
+                </div>
+            </div>
+
+            <div class="field is-grouped">
+                <div class="control">
+                    <button class="button is-link">Edit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
