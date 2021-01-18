@@ -5,7 +5,7 @@ import psycopg2 as dbapi2
 
 
 INIT_STATEMENTS = ["""
-CREATE TABLE user(
+CREATE TABLE users(
   UserID 		SERIAL PRIMARY KEY,
   email 		VARCHAR(255) NOT NULL UNIQUE,
   password 		VARCHAR(255) NOT NULL,
@@ -46,7 +46,7 @@ CREATE TABLE evaluation (
   Vote 			    INTEGER ,
   Comment 		    VARCHAR(200) ,
   Reply 			VARCHAR(200),
-  FOREIGN KEY (UserID)	REFERENCES USER (UserID)
+  FOREIGN KEY (UserID)	REFERENCES USERS (UserID)
     ON DELETE CASCADE,
   FOREIGN KEY (ProductNo) REFERENCES Product (ProductNo)
     ON DELETE CASCADE
