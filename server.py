@@ -53,7 +53,7 @@ def signup_page():
         mail=request.form['mail']
         password=request.form['password']
         usertype=request.form['question']
-        if usertype="company":
+        if usertype=="company":
             companyname=request.form['companyname']
         if mail=='' or password=='':
             flash("Please enter your mail and password.","info")
