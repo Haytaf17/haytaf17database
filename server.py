@@ -54,8 +54,6 @@ def signup_page():
         password=request.form['password']
         usertype=request.form['question']
         companyname=request.form['companyname']
-        condition=request.form['condition']
-        print(condition)
         if mail=='' or password=='':
             flash("Please enter your mail and password.","info")
             return redirect(url_for('signup_page'))
