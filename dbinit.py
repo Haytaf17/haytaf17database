@@ -15,8 +15,9 @@ CREATE TABLE IF NOT EXISTS users(
 ,"""
 CREATE TABLE IF NOT EXISTS company(
 	CompanyName 		VARCHAR(100) PRIMARY KEY,
-    NumOfProducts	 	INTEGER,
-   	AverageScore 		NUMERIC(5,2)
+    	NumOfProducts	 	INTEGER,
+   	AverageScore 		NUMERIC(5,2),
+	numberofevaluations	INTEGER
 );
 ""","""
 CREATE TABLE IF NOT EXISTS product(
