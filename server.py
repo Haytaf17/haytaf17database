@@ -1,8 +1,9 @@
 from flask import Flask, render_template, flash, redirect, url_for ,request ,session
 from functools import wraps
+import os
 import psycopg2
-
-dsn = "user=postgres password=123456 host=127.0.0.1 port=5432 dbname=flaskdb"
+dsn = os.getenv("DATABASE_URL")
+#dsn = "user=postgres password=123456 host=127.0.0.1 port=5432 dbname=flaskdb"
 con = psycopg2.connect(dsn)
 cur = con.cursor()
 
