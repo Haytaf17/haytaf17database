@@ -5,7 +5,7 @@ import psycopg2 as dbapi2
 
 
 INIT_STATEMENTS = ["""
-CREATE TABLE users(
+CREATE TABLE IF NOT EXISTS users(
   UserID 		SERIAL PRIMARY KEY,
   email 		VARCHAR(255) NOT NULL UNIQUE,
   password 		VARCHAR(255) NOT NULL,
@@ -13,13 +13,13 @@ CREATE TABLE users(
 );
 """
 ,"""
-CREATE TABLE company(
+CREATE TABLE IF NOT EXISTS company(
 	CompanyName 		VARCHAR(100) PRIMARY KEY,
     NumOfProducts	 	INTEGER,
    	AverageScore 		NUMERIC(5,2)
 );
 ""","""
-CREATE TABLE product(
+CREATE TABLE IF NOT EXISTS product(
 	ProductNo		SERIAL PRIMARY KEY,
    	ProductName 	VARCHAR(100) NOT NULL,
    	CompanyName		VARCHAR(100) NOT NULL,
@@ -30,7 +30,7 @@ CREATE TABLE product(
 		ON DELETE CASCADE    ON UPDATE CASCADE
 );
 ""","""
-CREATE TABLE companyaccount(
+CREATE TABLE IF NOT EXISTS companyaccount(
 	CompanyAccountID 	SERIAL PRIMARY KEY,
     CompanyName 		VARCHAR(100) NOT NULL,
   	email 			    VARCHAR(100) NOT NULL UNIQUE,
@@ -39,7 +39,7 @@ CREATE TABLE companyaccount(
 		ON DELETE CASCADE    ON UPDATE CASCADE
 );
 ""","""
-CREATE TABLE evaluation (
+CREATE TABLE IF NOT EXISTS evaluation (
   EvaluationID 		SERIAL PRIMARY KEY,
   UserID 		    INTEGER ,
   ProductNo 		INTEGER ,
