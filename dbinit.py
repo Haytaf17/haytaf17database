@@ -9,7 +9,7 @@ CREATE TABLE users(
   UserID 		SERIAL PRIMARY KEY,
   email 		VARCHAR(255) NOT NULL UNIQUE,
   password 		VARCHAR(255) NOT NULL,
-  isAdmin 		INTEGER NOT NULL,
+  isAdmin 		INTEGER NOT NULL
 );
 """
 ,"""
