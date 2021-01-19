@@ -3,7 +3,7 @@ from functools import wraps
 from passlib.hash import pbkdf2_sha256 as hasher
 import psycopg2
 
-dsn = "user=postgres password=123456 host=127.0.0.1 port=5432 dbname=flaskdb"
+dsn = "user=postgres password=docker host=localhost port=5432 dbname=postgres"
 con = psycopg2.connect(dsn)
 cur = con.cursor()
 
