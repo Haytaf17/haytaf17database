@@ -32,11 +32,11 @@ CREATE TABLE IF NOT EXISTS product(
 );
 ""","""
 CREATE TABLE IF NOT EXISTS companyaccount(
+	CompanyName 		VARCHAR(100) NOT NULL,
+	email 			    VARCHAR(100) NOT NULL UNIQUE,
+    	password 		VARCHAR(255) NOT NULL,
 	CompanyAccountID 	SERIAL PRIMARY KEY,
-    CompanyName 		VARCHAR(100) NOT NULL,
-  	email 			    VARCHAR(100) NOT NULL UNIQUE,
-    password 		VARCHAR(255) NOT NULL,
-    FOREIGN KEY (CompanyName) 	REFERENCES Company (CompanyName)
+    	FOREIGN KEY (CompanyName) 	REFERENCES Company (CompanyName)
 		ON DELETE CASCADE    ON UPDATE CASCADE
 );
 ""","""
