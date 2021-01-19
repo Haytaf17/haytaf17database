@@ -42,7 +42,7 @@
       </tr>
       {% for product in products %}
           <tr>
-          <td>{{product[1]}}</td>
+            <td><a href="/productpage/{{product[0]}}">{{product[1]}}</a></td>
           <td>{{product[2]}}</td>
           <td>{{product[5]}}</td>
           <td><progress class="progress is-warning" value="{{product[3]}}" max="10"></progress></td>
