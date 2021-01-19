@@ -1,9 +1,9 @@
 from flask import Flask, render_template, flash, redirect, url_for ,request ,session
 from functools import wraps
-import os
+from passlib.hash import pbkdf2_sha256 as hasher
 import psycopg2
-dsn = os.getenv("DATABASE_URL")
-#dsn = "user=postgres password=123456 host=127.0.0.1 port=5432 dbname=flaskdb"
+
+dsn = "user=postgres password=123456 host=127.0.0.1 port=5432 dbname=flaskdb"
 con = psycopg2.connect(dsn)
 cur = con.cursor()
 
@@ -34,8 +34,6 @@ def home_page():
     evaluation=cur.fetchone()
     cur.execute("Select count(*) from company;")
     companies=cur.fetchone()
-#    return render_template ('adminpanel.html',users=users,evaluation=evaluation,products=products,companies=companies)
-    cur = con.cursor()
     cur.execute(" select users.email,product.productname,product.companyname,vote,comment ,reply from evaluation inner join users on evaluation.userid=users.userid inner join product on evaluation.productno=product.productno limit 5;")
     posts=cur.fetchall()
     cur.close()
@@ -70,7 +68,8 @@ def signup_page():
             return redirect(url_for('signup_page'))
         else:
             if usertype=='customer':
-                cur.execute("INSERT INTO users(email, password,IsAdmin) VALUES (%s,%s,0);",(mail,password) )
+                hashed = hasher.hash(password)
+                cur.execute("INSERT INTO users(email, password,IsAdmin) VALUES (%s,%s,0);",(mail,hashed) )
             else:
                 cur.execute("select * from companyaccount where companyname='{0}';".format(companyname))
                 exist=cur.fetchone()
@@ -78,11 +77,62 @@ def signup_page():
                     flash("This company has an account!","info")
                     return redirect(url_for('signup_page'))
                 else:
-                    cur.execute("INSERT INTO companyaccount(companyname,email,password ) VALUES ('{0}','{1}','{2}');".format(companyname,mail,password))
+                    hashed = hasher.hash(password)
+                    cur.execute("INSERT INTO companyaccount(companyname,email,password ) VALUES ('{0}','{1}','{2}');".format(companyname,mail,hashed))
         con.commit()
         cur.close()
         return redirect(url_for("home_page"))
+   
     
+@app.route("/login" ,methods=['GET','POST'])
+def login_page():
+    if request.method == "GET":
+        return render_template("login.html")
+    else:
+        cur = con.cursor()
+        mail=request.form['mail']
+        password=request.form['password']
+        if mail=='' or password=='':            
+            return render_template('login.html',message='Please enter your mail and password.')
+        cur.execute(" SELECT * FROM users WHERE email = '{0}';".format(mail))
+        data=cur.fetchone()
+        cur.execute(" SELECT * FROM companyaccount WHERE email = '{0}';".format(mail))
+        data2=cur.fetchone()
+        if(not data and not data2):
+            return render_template ('login.html', message='This email is not registered. Please sign up from upper right')
+        elif data:
+            if hasher.verify(password, data[2]):
+                session["logged_in"] = True
+                session["customer"] = True
+                session["UserID"] = data[0]
+                session["email"] = data[1]
+                session["password"] = data[2]
+                session["IsAdmin"] = data[3]
+                return redirect(url_for('profile_page'))
+            else:
+                return render_template ('login.html', message='Check your password')
+        else:
+            if hasher.verify(password, data2[2]):
+                session["logged_in"] = True
+                session["companyaccountid"] = data2[3]
+                session["email"] = data2[1]
+                session["companyname"] = data2[0]
+                session["password"] = data2[2]
+                return redirect (url_for("companyprofile"))
+            else:
+                return render_template ('login.html', message='Check your password')   
+        con.commit()
+        cur.close()
+        return render_template("main.html")  
+
+
+
+@app.route('/profile')
+def profile_page():
+    cur.execute("select evaluationid,userid, product.productname,product.companyname,vote,comment,reply from evaluation inner join product on evaluation.productno=product.productno WHERE UserID='{0}' ORDER by evaluationID DESC;".format(session["UserID"]))
+    posts=cur.fetchall()
+    return render_template ('profile.html' , posts=posts)
+
 
 @app.route("/newevaluation",methods=['GET','POST'])
 def newevaluation_page():
@@ -109,7 +159,7 @@ def newevaluation_page():
         cur.execute("UPDATE company SET (numberofevaluations,averagescore)=(numberofevaluations+1,(averagescore*numberofevaluations+{0})/(numberofevaluations+1)) WHERE companyname ='{1}';".format(vote,product_company[0]))
         con.commit()
         cur.close() 
-        return  redirect(url_for("home_page"))
+        return  redirect(url_for("profile_page"))
 
 @app.route("/newproduct",methods=['GET','POST'])
 def newproduct():
@@ -125,48 +175,7 @@ def newproduct():
         con.commit()
         return redirect(url_for("companyprofile"))
 
-@app.route("/login" ,methods=['GET','POST'])
-def login_page():
-    if request.method == "GET":
-        return render_template("login.html")
-    else:
-        cur = con.cursor()
-        mail=request.form['mail']
-        password=request.form['password']
-        if mail=='' or password=='':            
-            return render_template('login.html',message='Please enter your mail and password.')
-        cur.execute(" SELECT * FROM users WHERE email = '{0}';".format(mail))
-        data=cur.fetchone()
-        cur.execute(" SELECT * FROM companyaccount WHERE email = '{0}';".format(mail))
-        data2=cur.fetchone()
-        if(not data and not data2):
-            return render_template ('login.html', message='This email is not registered. Please sign up from upper right')
-        elif data:
-            if data[2]==password:
-                session["logged_in"] = True
-                session["customer"] = True
-                session["UserID"] = data[0]
-                session["email"] = data[1]
-                session["password"] = data[2]
-                session["IsAdmin"] = data[3]
-                cur.execute(" SELECT * FROM evaluation WHERE UserID='{0}' ;".format(data[0]))
-                posts=cur.fetchall()
-                return redirect(url_for('profile_page'))
-            else:
-                return render_template ('login.html', message='Check your password')
-        else:
-            if data2[2]==password:
-                session["logged_in"] = True
-                session["companyaccountid"] = data2[3]
-                session["email"] = data2[1]
-                session["companyname"] = data2[0]
-                session["password"] = data2[2]
-                return redirect (url_for("companyprofile"))
-            else:
-                return render_template ('login.html', message='Check your password')   
-        con.commit()
-        cur.close()
-        return render_template("main.html")
+
 
 
 @app.route('/logout')
@@ -176,11 +185,6 @@ def logout_page():
     flash("Logout success","info")
     return redirect(url_for("home_page"))
 
-@app.route('/profile')
-def profile_page():
-    cur.execute("select evaluationid,userid, product.productname,vote,comment,reply from evaluation inner join product on evaluation.productno=product.productno WHERE UserID='{0}' ORDER by evaluationID ASC;".format(session["UserID"]))
-    posts=cur.fetchall()
-    return render_template ('profile.html' , posts=posts)
 
 @app.route('/companyprofile',methods=['GET','POST'])
 def companyprofile():
@@ -274,7 +278,7 @@ def deleteevaluation_page(evaluation_id):
 @app.route('/edit/<int:evaluation_id>', methods=['GET', 'POST'])
 def editevaluation_page(evaluation_id):
     if request.method == "GET":
-        cur.execute(" SELECT * FROM evaluation WHERE evaluationID = '{0}' AND  userID = '{1}';".format(evaluation_id,session["UserID"]))
+        cur.execute(" SELECT evaluationid,userid,evaluation.productno,vote,comment,reply,product.productname,product.companyname FROM evaluation inner join product on evaluation.productno=product.productno WHERE evaluationID = '{0}' AND  userID = '{1}';".format(evaluation_id,session["UserID"]))
         evaluation =cur.fetchone()
         cur.execute("Select * from product ORDER BY productname ASC;")
         products=cur.fetchall()
