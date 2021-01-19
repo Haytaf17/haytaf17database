@@ -244,7 +244,14 @@ def companypage(companyname):
     cur.execute("select * from product where companyname='{0}';".format(companyname))
     products=cur.fetchall()
     return render_template('companypage.html',company=company,numofreply=numofreply ,products=products)
-   
+
+@app.route("/productpage/<int:productno>")
+def productpage(productno):
+    cur.execute("Select evaluationid,users.email,productno,vote,comment,reply from evaluation inner join users on evaluation.userid=users.userid where productno='{0}';".format(productno))
+    evaluations=cur.fetchall()
+    cur.execute("Select * from product where productno='{0}';".format(productno))
+    product=cur.fetchone()
+    return render_template('productpage.html',posts=evaluations,product=product)  
        
 
 @app.route("/delete/<int:evaluation_id>")
