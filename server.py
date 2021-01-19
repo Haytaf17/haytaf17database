@@ -2,8 +2,11 @@ from flask import Flask, render_template, flash, redirect, url_for ,request ,ses
 from functools import wraps
 from passlib.hash import pbkdf2_sha256 as hasher
 import psycopg2
+import os
 
-dsn = "user=postgres password=docker host=localhost port=5432 dbname=postgres"
+#dsn = "user=postgres password=docker host=localhost port=5432 dbname=postgres"
+#dsn = "user=postgres password=123456 host=127.0.0.1 port=5432 dbname=flaskdb"
+dsn = os.getenv("DATABASE_URL")
 con = psycopg2.connect(dsn)
 cur = con.cursor()
 
