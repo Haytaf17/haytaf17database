@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS evaluation (
     ON DELETE CASCADE,
   FOREIGN KEY (ProductNo) REFERENCES Product (ProductNo)
     ON DELETE CASCADE
-);""","""INSERT INTO users(email,password,isadmin) VALUES('admin@admin.com','admin',1);""",
+);""","""INSERT INTO users(email,password,isadmin) VALUES('admin@admin.com','$pbkdf2-sha256$29000$CEGodQ6BMIZwzplzDiHk/A$M9NpnfbQ5QLipNBaJFiiVR9beI4P0p.Vk7AsFOMils8',1);""",
 
 ]
 
