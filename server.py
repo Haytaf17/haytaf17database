@@ -482,11 +482,8 @@ def products_page():
 @app.route('/categories')
 def categories():
     cur = con.cursor()
-    cur.execute(" SELECT categoryname FROM product;")
+    cur.execute(" SELECT categoryname FROM product GROUP BY categoryname;")
     categories=cur.fetchall()
-    print(categories)    
-    categories = list(dict.fromkeys(categories))
-    print(categories)
     return render_template('companies.html',categories=categories)
 
 @app.route('/allcompanies')
