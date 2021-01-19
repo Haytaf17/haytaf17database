@@ -10,6 +10,7 @@
     
   <style>
     {% block head %}{% endblock %}
+
     table td.comment {
         width: 250px;
         overflow-x: scroll;
@@ -45,7 +46,7 @@
         <div class="hero-head">
             <nav class="navbar is-fixed-top has-background-success" role="navigation" aria-label="main navigation">
                 <div class="navbar-brand">
-                    <a class="navbar-item has-text-warning is-italic is-size-3 " href="#">
+                    <a class="navbar-item has-text-warning is-italic is-size-3 " href="{{ url_for('home_page') }}">
                        <strong> * CEP *</strong>
                         
                     </a>

@@ -3,9 +3,9 @@
 
 <div class="hero-body has-background-light">
     <div class="container has-text-right">
-      <h1 class="title has-text-weight-light has-text-black is-1">Title 1</h1>
+      <h1 class="title has-text-weight-light has-text-black is-2">{{session["companyname"]}}</h1>
       <h2 class="subtitle has-text-black">
-        Fullheight subtitle Hey
+        Here is your company profile. You can reply to the evaluations about your company.
       </h2>
       <h1>
         <div class="columns">
@@ -15,6 +15,7 @@
               
                   <div class="card-table">
                       <div class="content">
+                        
                           <table class="table is-fullwidth is-striped">
                               <tbody>
                                 {% for product in products %}
@@ -35,7 +36,8 @@
               </div>
           </div>
         </div>   
-        <div class="container">
+        <div class="container  has-text-left">
+          <h1 class="has-text-dark is-size-5">** Not Replied : **</h1>
           <table class="table is-bordered is-striped is-fullwidth">
             <tr class="th is-selected">
                 <th>User</th>
@@ -67,6 +69,7 @@
             {% endif %}
             {% endfor %}
          </table>
+         <h1 class="has-text-dark is-size-5">** Replied : **</h1>
          <table class="table is-bordered is-striped is-fullwidth">
             <tr class="th is-selected">
                 <th>User</th>

@@ -7,11 +7,8 @@
             <div class="field">
                 <label class="label">ProductName</label>
                     <span class="select">
-                        <select name="productno">  
-                         <!-- <option selected>c</option> -->
-                        {% for product in products %}
-                        <option value='{{product[0]}}'>{{product[1]}} ({{product[2]}})</option>
-                        {% endfor %}
+                        <select name="productno" >  
+                        <option value="{{values[2]}}" selected>{{values[6]}} ({{values[7]}})</option>
                         </select>
                     </span>
             </div>

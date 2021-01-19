@@ -3,9 +3,9 @@
 
 <div class="hero-body has-background-light">
     <div class="container has-text-right">
-      <h1 class="title has-text-weight-light has-text-black is-1">Title 1</h1>
+      <h2 class="title has-text-weight-light has-text-black">This your private profile.</h2>
       <h2 class="subtitle has-text-black">
-        Fullheight subtitle Hey
+        Here are your evaluations. You can delete or edit easily.
       </h2>
       <h1>
         {% if posts %}
@@ -13,6 +13,7 @@
           <table class="table is-bordered is-striped is-fullwidth">
             <tr class="th is-selected">
                 <th>ProductName</th>
+                <th>CompanyName</th>
                 <th>Vote</th>
                 <th class="comment">Comment</th>
                 <th>Reply</th>
@@ -20,9 +21,10 @@
             {% for post in posts %}
             <tr>
               <td>{{post[2]}}</td>
-              <td><progress class="progress is-warning" value="{{post[3]}}" max="10"></progress></td>
-              <td class="comment">{{post[4]}}</td>
-              <td>{{post[5]}}</td>
+              <td>{{post[3]}}</td>
+              <td><progress class="progress is-warning" value="{{post[4]}}" max="10"></progress></td>
+              <td class="comment">{{post[5]}}</td>
+              <td>{{post[6]}}</td>
               <td> <a href="/delete/{{post[0]}}" class="button is-danger">Delete</a></td>
               <td> <a href="/edit/{{post[0]}}" class="button is-info">Edit</a></td>
               
